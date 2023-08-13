@@ -1,0 +1,584 @@
+#
+In this lecture we will discuss about, different Fundamental operations of Image Processing
+and an overview of image processing.
+So, let us understand first how images are represented in computer. Let us consider an
+image which is displayed on your screen; and consider a small portion of the image as it
+is shown by this rectangle, if I zoom this portion then you will find the enlarging portions
+of the image. And you can see that some of the details are more visible here and, but
+there are certain kind of rectangular regions of the pixels regions which are also visible.
+And, if I further zoom this area, then you will observe that further zooming those areas
+there are small squares of uniform illumination, those values are shown here by the numbers
+in those squared. So, finally, as you can see that, in the image at the very bottom
+level of representation, every point has a number and that number is representing the
+brightness value at that particular point. However, while displaying it on a screen it
+is a small area which is represented; which is representing that point and this brightness
+value is also shown at that point. So, the image is represented as a 2D array
+of integers. So, these numbers are all those integers; and in a 2 dimensional array as
+you know you require to also mention the array size. So, those array size will be the width
+and height of the image for example, in this case for this image the width is 256, which
+means there are 256 points along its width and height is 384, there are 384 points along
+its height.
+When we consider representing a colour image, there would be three such 2 dimensional arrays
+each for representing one of the primary colours like red, green and blue. If you consider
+any particular point of these array, all the respective locations all the respective array
+elements corresponding array elements with the same array indices, they will represent
+a combination of colour by this three primary colours. So, you will have a red component
+of the colour, if I can display only with the red colour in the screen.
+And a green component of the image, which is displayed here by the green colour; and
+the blue component of the image which is displayed by blue colour. Now, once we superimpose all
+these colours on a screen, then you can get the colour representation of the image itself.
+So, an image in this case is represented by three, 2 dimensional array.
+And when this information is stored in a computer hard disk, in the secondary storage you know
+that any information in the secondary storage is stored as a file. Similarly, image has
+to be stored as a file and a file it consists of a stream of bytes. So, in this case every
+byte or a collection of byte will represent a pixels and we can consider that is as a
+stream of pixels. However, to represent the image in the in
+your program in your computation, you require other associated information’s of the images
+of that image and which has to be stored also with this stream. Usually, they are stored
+a head of the stream in a very predefined format and which is called header of the image
+file. For example, a header can consist of this kind of information’s like, it could
+it should contain the width information, height then number of components which means in this
+case for a colour channel it should be three for a colour image.
+Number of bytes per pixel as I mentioned that, a pixel could be represented by number of
+bytes; in a very elementary representations usually it is 1 byte per pixel. And where
+the values it you know unsigned integer values vary from, 0 to 255 per pixel. of course,
+there should be an end of file representation for a file.
+And there are different standard file formats which are available for an image representation,
+they are very much standardized and documents are available. So, when you get an image file
+in these formats, you should know the corresponding format and you should parts the header and
+get the images. So, these are some example formats like TIFF, BMP, GIF etc.
+So, let us consider, how an image is formed in an optical camera? Let us consider in a
+camera which is represented here, a lens of the camera which plays a very critical role.
+And, there is a plane where the image points are projected where the points of the 3 dimensional
+scene, they are projected on a 2 dimensional plane and that is actually the focal plane
+usually of these particular lens. And where the images are found and those points are
+finally, sensed by corresponding sensors and they are digitised and you get a digital representation.
+So, if I consider that, how a point in a 3 dimensional space is mapped to an image point;
+so, let us see how it can take place, if you consider a point P where a light is reflected
+and that light is passing through the centre of the lens and intersecting at the plane
+of projections or the image plane. So, this point which is represented here by small p
+is a image of the scene point which is represented here by this capital P. So, image has been
+in this case image formation, has taken place due to the phenomena of reflection as you
+can see. So, there is another information, which is
+also encoded at this image point that is a amount of reflection that amount of energy
+that is received at this point which is reflected from the point P. So, that is the action of
+lens, which takes care of this particular but it tries to get as much as energy reflected
+energy tries to put them together on this plane p, collects it and focused it on this
+point p and that is what is called also focusing. And that is why you get a very sharp picture
+if it is properly focused, a sharp point representation of the scene point.
+So, this is another encoding. So, the amount of energy which is reflected from this point
+that should be received here and that is sensed. So, the interpretation of this image is that
+it keeps a brightness distribution in this 2 dimensional plane; where at each point you
+get the corresponding it is proportional to the amount of energy reflected from its corresponding
+scene point. Let us look at minutely that once again; what
+is a rule of projection that I mentioned here and that provides you a very simple mathematical
+tool to compute given a point P in the 3 dimensional world, what should be its corresponding image
+point in a 2 dimensional plane. So, as we can see in this case that, this can be formed
+if I draw a line from this point through a particular fixed point O which is here the
+centre of the lens and extend that ray which hits the corresponding image plane and that
+intersection point defines the image point of the 3 dimensional scene point.
+So, this is a centre of projection as I mentioned and this is the image plane. And so, we can
+summarize this rule as image points formed by intersection of the ray from a point P
+and passing through the centre of projection O with the image plane. This kind of projection
+is known as perspective projection.
+But, this is not the only way images are formed there could be other kinds of imaging principles
+other rules of projections can take place. For example, in this case what I am going
+to show here, there are image formed image of this cube where you know one of the planes
+of the cubes have been projected here. And, as you can see all these points are parallely
+projected to this plane, there is a particular direction which has to be considered in this
+case for this projection it could be normal to the plane, it could be any other directions
+in a 3 dimensional plane. So, this rule we can summarize in this way
+that image points formed by intersection of parallel rays with the image plane. And, this
+kind of one example of this kind of imaging is X ray imaging where X ray beams parallel
+X ray beams, it passes through our know body through bones through tissues. And then it
+intersects the corresponding X ray plate, which acts likes a image plane in this case
+and forms the image and this projection is known as parallel projections.
+Let us take another imaging principle. Let us consider you have a surface of an object
+and your imaging sensor there is a transmitter, which transmits the transmits a electromagnetic
+wave or some acoustic wave and then, the reflected wave is received by receiver. So, the duration
+the time interval between transmission and reception that can be measured and if you
+know the velocity of the wave you can compute the corresponding distance from this point.
+And consider it scan radially, you are taking this at every regular interval and you are
+scanning it radially over the surface points. And you can get or you can consider also,
+you can translate this transmitter receiver transmitter receiver along certain directions
+and performs its action repeatedly. So, for every surface point in that path you will
+get a distance. So, you can measure the distance not only that the amount of reflection, what
+you get from the surface that would also determine the orientation and surface property of this
+particular material. So, one example is this echocardiograms, where
+acoustic waves are used and ultra sound waves are used and so, this is one kind of example.
+So, if I summarize that how what is an image, how do I define an image? It is in a very
+short sentence we can say, it is an impression of the physical world. And just to make it
+a little more just to elaborate it we can say that, it is a special distribution of
+a measurable quantity encoding the geometry and material properties of objects.
+So, now I will be discussing a few concepts and operations, which are which are there
+in the image processing. And in this course we would require some of these concepts as
+I mentioned earlier that know you do not required to go through the first level image processing
+course to attend this particular computer mission course, these are the primers that
+I will be discussing here. However, it would be better if you follow some image processing
+textbooks and know further know more details about this concepts.
+So, let us consider the first a very simple concept of images a very first level statistics
+of the distribution of this pixel values and, which can be captured in the form of a frequency
+distribution of the brightness values in this particular image. Here I have shown an image
+of a scanned page we can say this classes of images are document images. Once again
+in this image also you have those brightness values at every pixel.
+And as you can see there are two types of pixels are there mostly, one is one is a text
+it depicts a text of the document the other one belongs to background. Usually in the
+histogram you should have found the this you should have obtained, a bimodal kind of characteristics.
+But in this case since you get so many white pixels, so it is more skewed and particularly
+the distribution in the text zone it looks little flat.
+So, we will come to this point know how this could be processed further to make it more
+bimodal, but presently let us consider this is the let us concentrate on this fact that
+a. An image histogram is nothing, but the frequency distribution of this brightness
+value. And from this frequency distribution you can get the probability distribution you
+can convert it into a probability distribution of the brightness value.
+If I normalize the histogram; that means, all this frequencies should be divided by
+the total number of pixels of the image, then you get the probability distribution of the
+brightness values.
+So, one of the problem of document image analysis is to separate the foreground from background
+and this process is called binarization process. So, and one of the simple technique of binarization
+is using a threshold value to declare that, whether a pixel is foreground or whether it
+is background ah. So, in our present context the example what
+I have given here foreground is the dark pixels and background is the bright pixels; so which
+are white region of the document. And pixels after binarization, it could be set to one
+of the two values for example, we can consider 255 represents the white region and 0 represents
+the text portions or dark pixels say this is what we can consider.
+One of the simple algorithms at of this you know binarization could be as follows. Say,
+you can choose a threshold value T that is one of the brightness value in that intervals
+some value in the brightness interval. And a pixel greater than T is set to 255 otherwise
+it is set to 0.
+So, this is a very simple algorithm and let us see, what is the affect of this algorithm.
+Say, you consider that know this document and this is represented this is displaying
+the particular a histogram. Let us consider a particular value say 156 where you perform
+this thresholding and then you get an image like this. So, you see that there are only
+two types of pixels, pixels with the value 0 and pixels with value 255 in this case when
+your threshold value is 156. If I choose another value say 192 you get
+also another kind of binarized image; and you can see the difference between these two
+images. So, if the threshold value is higher than you get more foreground pixels your text
+becomes sharper here, but then there are more spurious noise in your in your document also
+which is not desirable. So, what is the optimum threshold value? What is a desirable threshold
+value which will make my text sharper which will look the foreground also sharper or they
+take the proper program pixels and also it should not contain the it should remove the
+noisy part of the pixels also. So, this kind of manual choice of thresholding
+may not help when you are trying to process various documents. And one of the objective
+would be that to automate this operation of this thresholding ah.
+So, one of the techniques, that I would be discussing here, is a Bayesian classification
+of foreground and background pixels of a particular image. In this case we consider that our histogram
+of the image is a bimodal histogram, a schematic diagram is shown here it is. Say, there are
+two modes, there are two peaks in this histogram and we our assumption is that most of the
+pixels which are around this mode around its particular peak, those pixels are they are
+coming from the foreground pixels. And the and the pixels, which are coming from
+the background they are centered around this particular mode. So, we consider there are
+two classes of pixels and these are the know symbols of this class these are the notations
+of this class in this case say it has considered w 1 and w 2 just for the abstract representation
+of this problem. So, what we need to do in this case? We need
+to compute the probability of a class w 1 given x and probability of a class w 2 given
+x. So, this is because you know in Bayesian classification rule, we can we assign the
+pixel x to class w1, if the probability of w 1 given x is greater than probability of
+class w 2 given x otherwise we assign it to w 2 that is a base Bayes classification rule.
+So, how we can compute this know this particular probability, which is called incidentally
+posterior probability. In this case, so we can apply Bayes theorem there and in the Bayes
+theorem you can see that in this case I have described the theorem.
+So, consider this pixel x, so probability of a class given that pixel x, can be computed
+from this three quantities. So, this is probability of the class itself then probability of x
+given this class and divided by the probability of x, so this is the Bayes theorem. And it
+is simpler to compute particularly this quantity is easier to compute then this quantity directly
+because this is called likelihood. And we can assume that the pixels which are around,
+this part they form a distributions which are coming a class distribution which are
+coming from the foreground pixels and can assume they are Gaussian distribution.
+Similarly, the pixels, so this is this is the probability distribution of the pixel
+x, given that they are coming from class w 1. And similarly for the background class
+also we can consider another probability distributions, for the background class and that would be
+the probability distribution of x given w 2. So, these probabilities are called likelihood
+that could be easily that could be computed easily rather than computing this directly.
+And also you can compute probability of omega itself class probabilities, if I assume that
+know some threshold value is chosen then these proportional areas can give me those two probabilities.
+I will describe it in the subsequent slide, but what is interesting to note that actually
+you may not use this probability of x at all in this computations. Because after computing
+this two you need to compare only this values that would, because this is proportional to
+this values given a particular x p x is you know already given by the data itself.
+So, let us see how these computations can be carried out? And there is a algorithm by
+which we determine this thresholds, we call this algorithms as expectation maximization
+algorithm. So, let me explain this algorithm here. So, let us consider that histogram once
+again histogram of the image or probability distribution of the pixels. And let us assume
+and a threshold value initially say at this point. So, this value divides the intervals
+this brightness interval into two halves. So, one we can consider this half belongs
+to say foreground region and this half belongs to a background region. And so, this is a
+representation for the foreground part and say this is a representation of background
+part. So, what we can do? Given this threshold this threshold we can compute probability
+of w 1 and probability of w 2 why computing the areas area of this part and also areas
+of this part and take the proportional know areas of which region to compute that values.
+So, this is how the probability of class probabilities could be computed, ones given a threshold
+value. And then, after that we can consider only concentrate only this values these classes
+only and from there we can compute the parameters of say probability of x given w 1 by assuming
+it Gaussian. And similarly we can also compute parameters of probability of x given w 2 by
+assuming it Gaussian. So, if I relook at the Gaussian distributions
+function, it is a Gaussian distribution function as you can see there are two parameters; one
+is mu which is a mean of the distribution another one is sigma which is the standard
+deviation of this distribution. So, what you need to do in this case to compute the probability
+this likelihood probability, you just simply you need to compute this parameters then you
+can compute the probability of any value x given those parameters. So, let us assume
+that we call the parameters corresponding parameters for the class w 1 as mu 1 and sigma
+2 and corresponding parameters of w 2 as mu 2 and sigma 2.
+So, next what we will do that we will be considering the and this is how the corresponding parameters
+are computed in this case. You can see probability of w 1 is computed as the as the correspond
+as the area of p x from its a summation from 0 to threshold probability of w 2 is a is
+just its 1 minus p w 1 because it is a complimentary part of the area. And then this is the main
+from this region and this is a standard deviation standard deviation from this region. And similarly
+mu 2 is a main from this region and sigma 2 squared that is a variance or sigma 2 is
+a standard deviation which is from this region and this is how we are computing.
+So, we are computing the variances with this of this values and main of these values. And
+these are all simple mathematical arithmetic expressions of weighted means and weighted
+variances. So, if you look at the statistics, group of statistics it will be very clear
+how these values are computed by this expressions are there. So, ones we get these values then
+we are determining a new threshold value such that, the probability of w 1 by x is greater
+than probability of w 2 x. So, as soon as it becomes less, then we choose
+that threshold values, still choose that threshold value and that value would be a new value.
+So, we expected this should be a threshold value, but after computing this parameter
+after maximizing the probabilities of occurrences of these pixels then we found there is a better
+threshold value which will be giving in a bettered better probabilistic occurrences
+of this observations. So, we iterate this process, so that would be my new threshold
+value and we will be iterating this process till the process is converged. So, this is
+what is your Bayesian classification based binarization method.
+And there is another method also we can consider here, which is almost similar and which also
+defines an optimization function by which you can get the threshold value. So, this
+optimization function is the between class variance of the particular two classes. So,
+between class variances are also as you can see it is defined by those by those parameters
+which I have discussed earlier. So, this is a class probability of w 1 this is a class
+probability of w 2 and these are the means of each classes.
+So, given a threshold value I can compute this sigma square B, like probability of w
+1 from this part probability of w 2 from this part then mu 1 can be computed from here and
+mu 2 can be computed from here. So, you consider that you are computing thee value at every
+pixel value from in your intervals say 0 to 255 for example, and you are you consider
+the that pixel value where the between class variance is maximum and that has been that
+you consider as your threshold value. So, this thresholding principle this thresholding
+technique is proposed by Otsu and it is known as Otsu thresholding technique.
+So, the example of these particular processing, you can see that with that particular document
+image. We have computed this Otsu thresholds and which is 157 in this case and it gives
+know this kind of image. And, if I consider the Bayesian thresholds, then we find an another
+image incidentally though the threshold values are same you can see that there is little
+bit of difference between these two images though quality of this two images are almost
+similar; this difference happens because we would like to make this histogram bimodal.
+So, before applying Bayesian classification, we process the image so that, the histogram
+has a sharper modes also in the foreground zone. So, how we are processing it I will
+discuss in the you know next part.
+So, in this case, so this is what is the method which I was referring at it is a contrast
+enhancement method and here the concept of pixel mapping is used. The pixel mapping concept
+is that you have an input pixel and which will be mapped to an output pixel in such
+a way that dynamic range of the input would be expanded. That means, suppose in this case
+dynamic range is from 0 to this value which could be say half of the interval approximately.
+But in the output we are converting that dynamic range from 0 to 255 that makes the pixels
+sharper I mean contrast sharper. And one of the property of course, that you need to mention
+that you need to you know preserve that this function has to be monotonically increasing
+because, if you have two pixels x 2 and x 1 and x 1 is higher than x 2 and corresponding
+y 1 also should be higher than y 2. So, that keeps a consistency of displaying you know
+brighter pixel brighter and darker pixel darker, so that is why you require this property.
+One of the popular function which is used in particular in this case, is this function
+from the probability distribution of the you know pixel itself. So, this is a cumulative
+distribution and you are scaling it by 255 assuring the range would be from 0 to 255.
+So, if I do this operation we can see that, we get a contrast rate image where the features
+are more visible in this are more prominent here. You can also look at this histogram
+this histogram has similar shape, but the dynamic range has been expanded modes are
+more clearly visible. In fact, this is a technique what I was referring at this is a technique
+we applied in the document which has been processed for binarization. So, with this
+let me stop here, this is a first part of this particular talk, we will start further
+we will go for the next part in the next lecture. Thank you very much for your listening.
+Keywords: Images, projection, histogram, thresholding, expectation maximization, Bayesian, equalization
+*********************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+#
+Let us consider image as a continuous function; it is a two-dimensional function and a point
+is in the two-dimensional real space and let us consider set of basis functions which are
+also a two-dimensional functions, we can represent it as a set where each function is given by
+say bi (x,y) . you should note that this could
+be the functional value, could be either in real or in the complex domain.
+We can represent, we can expand the two dimensional function f(x,y) using B as a linear combination
+of this basis functions as it is given here in this form that λi × bi (x, y) and where
+i is the indexes of the basis functions as given in the set.
+So, the transform of f with respect to B is given by the set of set of this coefficients
+which are λi these are called coefficients of transform and we can represent the function
+as the linear combination of this basis functions where the coefficients of the linear combinations
+are listed here.
+So, you can see that this is an alternative description of the image instead of representing
+the image by the functional form of f(x, y); I can simply represent it as a list of coefficients
+or even these coefficients can be a function of indexes.
+So, indexing maybe multidimensional, for example for a two-dimensional function indexing we
+can use two such indexes to denote a coefficient and in that case we can say that this function
+can be expanded in the form of a linear combination of two dimensional functions and we can have
+this double summations in this representation.
+So, one of the advantage of image transform is that this properties of basis functions
+this can be extended in the analysis.
+. Let us consider a particular type of property
+which is very useful when this basis functions they have this property.
+This property is called orthogonality property and if I expand the function in terms of this
+orthogonal basis functions then we call that expansion as orthogonal expansion.
+We will consider our discussion following up the discussion on this image transform,
+we will restrict our discussion to one-dimension first and later on we will see that now these
+properties can be easily extended to two dimension.
+So, we will understand the one-dimensional transform initially.
+So, one of the thing that we would like to define here this operation inner product.
+So, inner product is a binary operation where two operands are two functions you can see
+that this function f(x) and the another function g(x).
+So, it is the product of this two functions and integral of this product values at every
+point in the space x.
+Now of occurs in this product there is a there is there is something we should note that
+it is not a simple product, it is a product of function f(x) with the complex conjugate
+of g(x) and that is we are considering here.
+If both f(x) and g(x) functional values are in the real domain then complex conjugate
+itself will be the same functional value, so then we can write it as f(x) g(x) dx.
+So, orthogonal expansion it is possible when the basis functions this satisfies certain
+property, that means the set of basis functions it satisfies this particular property of a
+orthogonality.
+What we can see that inner product of any two different basis functions that should
+be equal to 0, whereas inner product of the same basis function will have a non zero value
+and which is a positive value.
+If this is true for any pair of basis functions in the set B, then we say that this basis
+functions they are all orthogonal in that set.
+So, transform coefficients in orthogonal expansion that could be easily computed by exploiting
+this property, that is one of the usefulness of this particular property and you can say
+that simply if I take the inner product of the function with a basis function, then we
+can and also divide it by ci then we can get the corresponding λi’s.
+And if ci is equal to 1 then it becomes orthonormal expansion then we can simply write λ equal
+to inner product of function and bi.
+So, this is what of since we are expressing the functions in terms of only transform coefficients,
+so we call this operation is a Forward transform operation.
+So now, function instead of being represented by f(x), now the functions function is represented
+by these λ’s and the reverse transform or inverse transform would be to compute the
+function from this coefficients back and because of the orthogonal property and also orthonormal
+property, we can simply write it in this form.
+That means, simply it is a; it is nothing but the linear combination of those basis
+functions and since it is a continuous domain.
+So, we are taking the integrations over all the index values otherwise in a discrete domain
+we can write it in this form.
+So, one of the special case of this orthogonal expansion is Fourier transform and in this
+case you can see that set of basis functions is given by in the following form:
+(eq. 1) it is a complex sinusoid which is the member
+of the set, it is given in the above form and the completeness of this basis function
+is : any orthogonal set which is a subset of any orthogonal basis set will also remain
+orthogonal, but using the linear combination of that subset, you will not get the complete
+reconstruction of the function.
+The basis set which keeps the complete reconstruction that is called the complete base.
+So, in the Fourier transform, in fact, the set what is defined here it is a complete
+base because, it can give me back this function as a linear combination of this function.
+You can see that actually this (eq. 1) is a infinite set, though individually every
+sinusoid can be distinguished here.
+So, the orthogonality property is reflected by this particular relationships where you
+can see the that ẟ(x) is the unit impulse function whose area is equal to 1 centering
+at ⍵ equal to 0 and otherwise ẟ(x) value would be 0 in everywhere.
+So, it is an unit impulse function and this particular property gives you the orthogonal
+property of the Fourier transform this base.
+So, Fourier transform can be defined in the following form which is the forward transform
+. =
+as you see in the above that it is an inner product of f(x) and also the complete base.
+So, the base is ,. So, you take the complex conjugate of the base which is . And if I
+take the inverse transform then once again this is considered as the inverse transform;
+So, is the corresponding coefficients and the linear
+combination of this basis function will give you the corresponding inverse transform.
+So, it gives you the full reconstruction because it is a complete base as I mentioned.
+One of the interesting fact that can be noticed in the following complex sinusoid
+it can be recomposed into two real and imaginary parts, real part consists of and imaginary
+part consists of say in this case.
+So, this forward transform can be expressed using the following expression itself.
+So, it has one transform component which consists of real part, another transform component
+which consists of imaginary part and in the real part we are using the basis functions
+as where as in the imaginary part we will be using the basis functions ator whatever
+be your interpretation.
+So, we can consider as the set of basis functions and this is also orthogonal,
+The above trigonometric functions are also orthogonal we know and is also orthogonal.
+But the thing is that as I mentioned that they will not form the complete base.
+So, we can use only . If I use the real part of then that will not give you back the full
+function.
+Similarly if I use the corresponding imaginary part of the transform and use the that will
+not also give me back the full function.
+So, it is not a complete base but there are certain functions where actually if you use
+only cosine functions or sine functions, you can reconstruct it fully, so these functions
+are called even and odd functions.
+There is a property like for an even functions, it should satisfy the following property:
+for all i.e, it should be symmetric around the origin
+or around at at both ends say should be equal to for all x
+for all Whereas for odd it should be antisymmetric.
+i.e, equal to for all x and
+naturally at the , the value has to be equal to 0 for this definition.
+So, a function could be even, it could be odd or it could be neither, when they are
+belong when they have this property, then you can expand them using only cosine or only
+sine functions.
+So, let us see so even we can have this is a property which is satisfied because, in
+that case if I take the integrations while taking the product with that would be 0.
+I.e,
+So, all sinusoidal terms would be 0; so that is why only cosine terms will remain and your
+transform coefficients can be sufficient to prescrib by only cosine transformations.
+Similarly for odd the above property is true and that is why using only sine sinusoidal
+basis you can reconstruct it.
+Now this could be easily derived if I consider this relationships of and in terms of the
+complex exponential quantities as below.
+So, full reconstruction is possible with cosines when the function is even and with sines when
+the function is odd.
+Now, let us consider the discrete representation.
+So, a discrete representation of a function can be made in the following form :
+that the function needs to be sampled at periodic interval and it will provide a sequence of
+functional values where each sequence position is an integer set and sampling interval which
+is associated with this particular definition.
+So, it can be also considered as a vector in an infinite dimensional vector space, but
+in our consideration since we will be always using images of finite dimension or the signals
+of finite dimension, you are representing them in the computation in the discrete domain.
+So, there we will be having only a finite dimensional vector.
+For example we can represent a function from within certain interval from say 0 to
+You should note here the sampling interval is implicitly represented in this form.
+So, even without sampling interval we have a representation of the function and when
+you are trying to interpret the function with the physical terms, physical quantities in
+the functional space then only the sampling interval has to be used.
+So, let us consider that we are representing a function in this case with a finite dimensional
+vector and say it is an n dimensional vector in this case; it is a column vector representation.
+So, that is why the transpose operation has been used as shown below.
+So, then how do you define a discrete linear transform?
+It is very simple because you know that whenever we perform any matrix multiplication in the
+following form: =
+, say you have a column vector of n dimensional column vector and let there may be a matrix
+of dimension and if I multiply them then you will get another vector of dimension, that
+means m dimensional vectors.
+So, this is a transformation of this column vector into another column vector of a different
+dimension.
+we call it a linear transform or as it is discrete since we were using the discrete
+presentation, let us call it as discrete linear transform.
+And this transform has inverse when this matrix which is called say transformation matrix
+B is a square matrix and also invertible.
+So, one of the interesting facts about this transformation matrix that we can note that
+we can consider rows of these transformation matrix B, they form the basis vectors, this
+is the analogy with respect to the basis functions.
+Because we will see instead of inner product between two functions we are having here,
+inner product of two vectors which is equivalent to the dot product of two vectors.
+So, let us consider this say this is the representation of the transformation matrix
+and these are the row vectors which is indicated by the transpose operations and you can say
+that this is a row vector you are considering, these are the complex conjugate operations
+by keeping it consistent with representation what we have for the inner product.
+So, when we perform this dot product or inner product between two vectors, then you get
+the corresponding element.
+So, ith basis vector provides you the ith element of the transformed vector which is
+Y here.
+otherwise
+So, the orthogonality condition in this case is reflected in the above form such that if
+you take any pair of two basis vector, then their inner product should be equal to 0 if
+they are different otherwise they should have a non zero value .
+So, with this form we can consider that it will have the similar representations.
+You can consider that a function as a linear combination of all those basis vectors.
+So, if I look at the discrete Fourier transform expressions, the basis vectors for the discrete
+Fourier transforms are represented in this form.
+So, it is you should note here this is defined for n functional points.
+for , and
+So, is a small element which means you can form a basis vector from by computing it to
+at it at each integer value of n within these interval.
+So, that gives me a vector that is a kth vector and there are n such vectors where the k indexes
+k is indexes vary from 0 to . for
+So, forward transform or discrete Fourier transform of a discrete sequence which is
+a finite sequence of length n can be expressed in the above form.
+for You can find out that this is nothing but
+the inner product of .only thing is that instead of putting in this expression ,we have taken
+care of the square root operation during the inverse transform by multiplying as shown
+above .This is a simple operation . So, we kept this division normalization operation.
+We removed that operation in forward transform and included it in during that reconstruction.
+So, actually the value what we will get that would be proportional and it does not matter
+at this stage.
+But when you reconstruct, it will again recover the same value because, you are taken care
+of that particular normalization during reconstruction operation.
+So, you can see that it is a linear combination of the corresponding of basis vector in the
+reconstruction also and the coefficients which is given by are the coefficients from discrete
+Fourier transform.
+We can also observe from the above expression that discrete Fourier transform is nothing
+but Fourier series of a periodic function.
+So, let us consider a finite sequence.
+So, in this case for simplicity let me take only four functional values and so, which
+means my value of N is 4 here and this is a functions for which I will be doing discrete
+Fourier transform.
+So, what I will consider because there is no definitions outside this interval, I can
+use any definition as per my convenience any other functional values and perform a transformation
+and after inverse transformation once again I will keep my observation window within the
+interval from 0 to 3 in this case.
+So, a periodic extension of this signal could be in this form that means, it is repeated
+so that you know in a periodic function this property needs to be a satisfied a periodic
+function with a period capital N should be . So, that is satisfied as you can see here,
+here the value of N is equal to 4.
+So, you will see after every fourth sample again it is repeating the same value.
+So, it becomes a periodic signal and as you know any periodic signal can be expressed
+as a linear combination of sinusoid functions and you can perform Fourier series ,that is
+,what you are doing here in this case.
+After that, while in performing inverse Fourier transform , you are only performing for these
+four sample points.
+So, and just to note that how it is related with the actual physical sampling interval
+which is say here.
+So, the fundamental frequency would be determined by the length of the period of this signal
+which is So, fundamental frequency is . And you can see that harmonics is represented
+by harmonic actual implicitly there is that is the physical frequency.
+So, we call as the normalized frequency in this representation.
+So, discrete Fourier transform that can be also expressed in terms of a linear transforms
+which means we can express a discrete Fourier transform as a matrix multiplication of a
+column vector where the column vector is given by the functional values a finite dimensional
+vector as we have considered earlier and if I multiply these matrix then we will get the
+transform matrix and you can see that these elements they are obtained from this corresponding
+basis vectors definition.
+So, we can represent this matrix in a shorter form where each k and Nth element is represented
+by the corresponding expression as shown below
+and if the value of k and n they range from 0 to which will give me an matrix.
+So, in a forward transform what we are doing; We are simply multiplying this transformation
+matrix with a column vector f which is representing the particular column vector .
+Then, we get the output transform matrix.
+So, the () transform matrix transform column vector which is representing the column vector
+which is actually the coefficients of discrete Fourier transform..
+and inverse transform will be naturally if I take the inverse of and multiply with F
+then we will get back once again column vector.
+Incidentally because of the orthogonality property and also orthonormal property of
+these functions.
+So, you can show that the inverse of the discrete Fourier transform matrix is nothing but its
+Hermitian transpose of the corresponding matrix.
+Hermitian transpose is the transpose of this matrix and also you should have to perform
+complex conjugate operation that would give you the Hermitian matrix.
+Now, discrete there could be other kinds of know say it off orthogonal basis vectors and
+some of them could be derived or extended from discrete Fourier transform representation.
+So, we call it generalized discrete Fourier transform.
+If you can observe that in the discrete Fourier transform ,basis vectors are generated by
+sampling the complex sinusoid within an interval between 0 to and then we have sampled at regular
+interval .Now if I make a phase shift there in that interval.
+So, there itself we can have a variation instead of we can give a phase shift of 𝜷 and also
+while defining basis vector we have considered harmonics and we have generated harmonics
+at regular interval. for , and
+So, if I give also a shift in the frequency space ,then also you can have a different
+basis vector.
+Now the above representation will generate also n basis vectors of N dimensions and that
+would be once again an orthogonal basis vector which is a square matrix which could be invertible.
+So, it could be easily used for once again for making a transform.
+So, this is the generalized discrete Fourier transform.
+We can use this basis vectors and we can get this expressions for discrete Fourier transforms.
+Similarly we can get back the function by applying the inverse Fourier transform it
+is the same similar form what we did for the case of discrete Fourier transform and the
+corresponding transformation matrix can be expressed in this form, here the elements
+as you can see it retains the same similar expressions only there are parameters and
+which is giving you a different set of transformation matrix.
+There are some popular transformation matrix as you can see a special value of at zero
+and that itself will give you the discrete Fourier transform what we have discussed earlier.
+If I took =0 and set , we call that transform as Odd Time Discrete Fourier Transform or
+OTDFT and you can represent the transform in this form; similarly and would be Odd Frequency
+Discrete Fourier Transform and if both are half; Odd Frequency Odd Time Discrete Fourier
+Transform.
+There are different properties which I am not discussing here; just for your example
+we have given this particular thing and they have their inverse transform in this case
+also.
+Those are related and I have shown you in this particular grade.
+So, there are different relationships of the inverse transform.
+I think let us stop here at this point and we can start from this point in the next lecture,
+where will see that though it is not possible in the continuous domain to have cosine transform
+and sine transform for every kind of function but in discrete domain for any finite dimensional
+sequence you can define cosine transforms and sine transforms.
+So, for that we will be using this generalized discrete Fourier transform.
+So, thank you for listening this talk and we will move over to the next lecture.
+Thank you.
+
+
+
